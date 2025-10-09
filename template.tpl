@@ -48,6 +48,7 @@ ___TEMPLATE_PARAMETERS___
 
 ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
 
+const encodeUriComponent = require('encodeUriComponent');
 const generateRandom = require ('generateRandom');
 const getCookieValues = require('getCookieValues');
 const getReferrerUrl = require('getReferrerUrl');
@@ -70,7 +71,7 @@ if (!fpid) {
     setCookie(COOKIE_NAME, fpid, {'domain': 'auto', 'max-age': 31536000, 'path': '/'});
 }
 
-const SCRIPT_URL = "https://dynamic.criteo.com/js/ld/s2sv2.js?p=" + PARTNERID + "&f=" + fpid + "&d=" + DOMAIN;
+const SCRIPT_URL = "https://dynamic.criteo.com/js/ld/s2sv2.js?p=" + encodeUriComponent(PARTNERID) + "&f=" + encodeUriComponent(fpid) + "&d=" + encodeUriComponent(DOMAIN);
 
 injectScript(SCRIPT_URL);
 
