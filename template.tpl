@@ -1,4 +1,4 @@
-﻿___TERMS_OF_SERVICE___
+___TERMS_OF_SERVICE___
 
 By creating or modifying this file you agree to Google Tag Manager's Community
 Template Gallery Developer Terms of Service available at
@@ -53,12 +53,13 @@ const generateRandom = require ('generateRandom');
 const getCookieValues = require('getCookieValues');
 const getReferrerUrl = require('getReferrerUrl');
 const getTimestampMillis = require ('getTimestampMillis');
+const getUrl = require('getUrl');
 const injectScript = require('injectScript');
 const setCookie = require('setCookie');
 
 const COOKIE_NAME = "crto_fpid";
 const PARTNERID = data.partnerId;
-const DOMAIN = getReferrerUrl('host');
+const DOMAIN = getUrl('host') || getReferrerUrl('host');
 
 function generateRandomId() {
     return 'fpid-' + getTimestampMillis() + '-' + generateRandom(100000, 999999).toString();
@@ -233,6 +234,31 @@ ___WEB_PERMISSIONS___
       ]
     },
     "isRequired": true
+  },
+  {
+    "instance": {
+      "key": {
+        "publicId": "get_url",
+        "versionId": "1"
+      },
+      "param": [
+        {
+          "key": "urlParts",
+          "value": {
+            "type": 1,
+            "string": "any"
+          }
+        },
+        {
+          "key": "queriesAllowed",
+          "value": {
+            "type": 1,
+            "string": "any"
+          }
+        }
+      ]
+    },
+    "isRequired": true
   }
 ]
 
@@ -260,6 +286,13 @@ setup: |-
           return ["test-fpid-12345"];
       }
       return [];
+  });
+
+  mock('getUrl', (component) => {
+      if (component === 'host') {
+          return "test-domain.com";
+      }
+      return "";
   });
 
   mock('getReferrerUrl', (component) => {
