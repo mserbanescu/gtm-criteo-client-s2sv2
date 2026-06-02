@@ -16,6 +16,7 @@ homepage: "https://www.criteo.com"
 documentation: "https://github.com/criteo/gtm-criteo-client-s2sv2/blob/main/README.md"
 versions:
   # Latest version
+  - sha: 798e2354c476ebbb455494649785bccb4808ad2c
+    changeNotes: Fix domain resolution to use the current page host before falling back to the referrer.
   - sha: c27f4c9351b33fa700f26882aa2604cb5f3b9ef2
     changeNotes: Initial Version
-
